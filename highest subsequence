@@ -1,0 +1,28 @@
+def highest_subsequence(seq):
+
+    count = 1
+    position = 0
+    sub_seq = []
+
+    if not seq:
+        print ("Enter a list")
+
+    else:
+        for position in range (0, len(seq)):
+            while seq[position] < seq[position + 1]:
+                count = count + 1
+                sub_seq.append(seq[position])
+                position = position + 1
+                
+                if seq[position] > seq[position +1]:
+                    count = 0
+
+            else:
+                break
+        return sub_seq
+    
+                    
+
+
+seq = [ 1,2,5,3,2,5,6,7,8]
+print(highest_subsequence(seq))
