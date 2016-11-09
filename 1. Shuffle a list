@@ -1,3 +1,10 @@
+'''
+Function to shuffle a list
+The big O notation for this function is:
+0 (n)
+
+'''
+
 import random
 
 def shuffle_list(list = []):
@@ -12,12 +19,5 @@ def shuffle_list(list = []):
     print (new_list)
 
 shuffle_list(list=[1,2,3,4,5,6,7])
-
-
-'''
-The big O notation for this function is:
-0 (n)
-
-'''
 
 
