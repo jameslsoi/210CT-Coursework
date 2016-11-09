@@ -1,0 +1,20 @@
+def reverse_String (string):
+
+    string = string.split()
+    new_String = []
+
+
+    if not str:
+        print ("Enter new string")
+
+    else:
+
+        while len(string) > 0:
+
+            new_String.append(string.pop())
+
+    return ' '.join(new_String)
+
+
+
+print (reverse_String("I am awesome"))
