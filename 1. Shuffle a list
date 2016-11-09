@@ -1,0 +1,23 @@
+import random
+
+def shuffle_list(list = []):
+
+    new_list =[]
+
+    while len(list) > 0:                            # While the list is greater than 0
+        number = random.randrange(0, len(list))     # Take a number from a random position in the list
+        new_list.append(list.pop(number))           # Remove this number and add it onto the list
+                                                    # This repeats until there is no more elements in the initial list
+
+    print (new_list)
+
+shuffle_list(list=[1,2,3,4,5,6,7])
+
+
+'''
+The big O notation for this function is:
+0 (n)
+
+'''
+
+
