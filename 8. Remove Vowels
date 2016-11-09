@@ -1,0 +1,17 @@
+def remove_Vowels(string):
+
+    if not string:
+        return string
+
+    else:
+
+        first = string[0]
+        if first in ['a','e','i','o','u']:
+            return remove_Vowels(string[1:])
+
+
+        return string[0] + str( remove_Vowels(string[1:]) )
+
+
+
+print (remove_Vowels("Beautiful"))
