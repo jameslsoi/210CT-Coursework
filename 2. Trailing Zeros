@@ -1,0 +1,20 @@
+''' Function which determines how the number of trailing zeroes.
+Works by finding how many times the factorial is divisble by 5.
+The amount of 5s is the amount of trailing zeroes
+
+big 0 notation : 0 (3n^2)
+'''
+
+def trailing_zero (factorial):
+
+    count = 0                       #This is a variable in which we store how many times the loop occurs
+
+    while factorial > 2:            #A factorial starts after 2 (1! is just 1x1)
+        factorial = factorial / 5   #Divide the factorial by 5
+        count = count + 1           #Every time you divide by 5, add 1 to the counter. The amount of times 5 occurs is
+                                    #the amount of trailing zeroes that the factorial will have.
+
+
+    print (count)
+
+trailing_zero(20)
