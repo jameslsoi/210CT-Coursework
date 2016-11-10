@@ -23,18 +23,19 @@ class List (object):
 
         elif self.tail == n:
             self.tail = x
-
+    
     def delete (self, n):
 
-        if n.prev != 0:
-            self.head = self.tail = n.next
+        if n.prev != None:
+            self.tail = self.head = n.next
         else:
-            l.head = n.next
-        if n.next != 0:
+            self.head = n.next
+        if n.next != None:
             self.head = self.tail = n.prev
         else:
-            l.tail = n.prev
+            self.tail = n.prev
         
+
 
     
     def display(self):
