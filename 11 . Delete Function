@@ -25,14 +25,16 @@ class List (object):
             self.tail = x
 
     def delete (self, n):
+
         if n.prev != 0:
-            n.prev.next = n.next
+            self.head = self.tail = n.next
         else:
-            l.head != 0
-        if n.next !=0:
-            n.next.prev = n.prev
+            l.head = n.next
+        if n.next != 0:
+            self.head = self.tail = n.prev
         else:
             l.tail = n.prev
+        
 
     
     def display(self):
@@ -51,5 +53,5 @@ if __name__ == '__main__':
     l.insert(l.tail, Node(10))
     l.insert(l.tail, Node (12))
     l.insert(l.tail, Node (14))
-    l.delete(l.head, Node(8))
+    l.delete( Node(12))
     l.display()
