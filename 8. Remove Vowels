@@ -6,11 +6,11 @@ def remove_Vowels(string):
     else:
 
         first = string[0]
-        if first in ['a','e','i','o','u']:
-            return remove_Vowels(string[1:])
+        if first.lower() in ['a','e','i','o','u']:     # if the first letter(lowercased) is a vowel         
+            return remove_Vowels(string[1:])           # return the function remove_vowels with the string[1] an onwards
 
 
-        return string[0] + str( remove_Vowels(string[1:]) )
+        return string[0] + str( remove_Vowels(string[1:]) #return the first letter and the letters
 
 
 
