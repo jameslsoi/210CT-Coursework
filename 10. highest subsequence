@@ -5,7 +5,8 @@ def highest_subsequence(seq):
     sub_seq = []
 
     if not seq:
-        print ("Enter a list")
+        raise Exception ("No list")
+        
 
     else:
         for position in range (0, len(seq)):
