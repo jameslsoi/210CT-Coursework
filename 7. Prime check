@@ -1,12 +1,13 @@
-def check_Prime(n, m=2):
+def check_Prime(n, m=2):                #n is the number you want to check for
+                                        #m is the starting number, m = 2 because it's the first prime
 
 
-    is_Prime = True
-    if n <= 1:
+    is_Prime = True                     #check if it is a prime               
+    if n <= 1:                          
         is_Prime = False
 
     else:
-        for i in range (m,n):
+        for i in range (m,n):           #in range of 2 and itself
             if n == 2:
                 is_Prime = True
 
@@ -15,7 +16,7 @@ def check_Prime(n, m=2):
                 is_Prime = False
 
             else:
-                return check_Prime(n, m+1)
+                return check_Prime(n, m+1)      #add 1 onto m
 
 
 
