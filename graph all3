@@ -1,0 +1,72 @@
+class Vertex (object):
+
+    def __init__(self, name):
+
+        self.name = name
+        self.adjacent = list ()
+
+    def add_adjacent(self, vertex2):
+
+        if vertex2 not in self.adjacent:
+            self.adjacent.append(vertex2)
+            self.adjacent.sort()
+
+
+
+class Graph(object):
+
+    def __init__(self, vertices = {}, visited = []):
+        self.vertices = vertices
+        self.visited = visited
+
+    def add_vertex(self, vertex):
+        if isinstance(vertex, Vertex) and vertex not in self.vertices:
+            self.vertices[vertex.name] = vertex
+
+
+    def add_edge(self, vertex1, vertex2):
+        if (vertex1 in self.vertices) and (vertex2 in self.vertices):
+            self.vertices[vertex1].add_adjacent(vertex2)
+            self.vertices[vertex2].add_adjacent(vertex1)
+        else:
+            raise Exception ("No connections")
+
+    def display(self):
+
+        for key in sorted (list (self.vertices.keys())) :
+            print (key + str(self.vertices[key].adjacent) )
+
+
+
+    def dfs(self, vertex):
+        vertices = self.vertices
+        stack = [vertex]
+        visited = []
+
+        while len(stack) > 0:
+            current = stack.pop()
+            for next in vertices:
+                if not next in visited:
+                    stack.append(next)
+            visited.append(current)
+        return visited
+
+    def print_dfs(self, visited):
+        print (self.dfs(visited))
+
+
+
+g = Graph()
+# print(str(len(g.vertices)))
+a = Vertex('A')
+g.add_vertex(a)
+g.add_vertex(Vertex('B'))
+for i in range(ord('A'), ord('K')):
+	g.add_vertex(Vertex(chr(i)))
+
+edges = ['AB', 'AE', 'BF', 'CG', 'DE', 'DH', 'EH', 'FG', 'FI', 'FJ', 'GJ', 'HI']
+for edge in edges:
+	g.add_edge(edge[:1], edge[1:])
+
+g.print_dfs('A')
+
