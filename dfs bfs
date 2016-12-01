@@ -1,0 +1,95 @@
+
+class Vertex (object):
+    def __init__(self, name):
+        self.name = name
+        self.adj = sorted (list())
+
+
+
+    def add_adj(self, vert2):
+        if vert2 not in self.adj:
+            self.adj.append(vert2)
+
+
+class Graph(object):
+
+    def __init__(self):
+
+        self.vertices = {}
+
+
+    def get_vertices(self):
+        return sorted (list(self.vertices.keys()))
+
+    def get_edge(self):
+        return list(self.vertices.keys())
+
+    def add_vertex(self, vertex):
+        if isinstance(vertex,Vertex) and vertex.name not in self.vertices:
+            self.vertices[vertex.name] = vertex
+
+
+
+    def add_edge(self, vert1, vert2):
+        if vert1 in self.vertices and vert2 in self.vertices:
+            self.vertices[vert1].add_adj(vert2)
+            self.vertices[vert2].add_adj(vert1)
+
+
+
+    def display(self):
+        for key in sorted (list (self.vertices.keys())):
+            print ( key + str(self.vertices[key].adj))
+
+    def dfs(self, vertex):
+
+        path = []
+        if len(path) < len (self.get_vertices()):
+            stack = [vertex]
+            while stack:
+                current = stack.pop(0)
+                neighbors = sorted ( list(current.adj))
+
+
+                if current.name not in path:
+                    path.append(current.name)
+                    for neighbor in neighbors:
+
+                           stack = [self.vertices[neighbor]] + stack
+
+        print (path)
+
+    def bfs (self, vertex):
+
+        path = []
+        if len (path) < len (self.get_vertices()):
+            queue = [vertex]
+
+            while queue:
+                current = queue.pop(0)
+                neighbors = sorted( list (current.adj))
+
+                if current.name not in path:
+                    path.append(current.name)
+                    for neighbor in neighbors:
+                        if neighbor not in path:
+                            queue =  queue +  [self.vertices[neighbor]]
+        print(path)
+
+if __name__ == '__main__':
+    g = Graph()
+    v = Vertex('A')
+    
+    for i in range(ord('A'), ord('J')):
+        g.add_vertex(Vertex(chr(i)))
+
+
+    edges = ['AB','AI','CD','CE','CF','EH','FG','GH','IC','IG']
+    for edge in edges:
+        g.add_edge(edge[:1], edge[1:])
+
+    g.display()
+    g.dfs(g.vertices['A'])
+    g.bfs(g.vertices['A'])
+
+
