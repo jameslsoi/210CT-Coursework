@@ -1,130 +1,79 @@
 class Vertex (object):
-
     def __init__(self, name):
-
         self.name = name
-        self.adjacent = list ()
+        self.adj = sorted (list())
 
-
-    def add_adjacent(self, vertex2):
-
-        if vertex2 not in self.adjacent:
-            self.adjacent.append(vertex2)
-            self.adjacent.sort()
-
-
+    def add_adj(self, vert2):
+        if vert2 not in self.adj:
+            self.adj.append(vert2)
 
 class Graph(object):
 
-    def __init__(self, vertices = {} , visited = []):
-        self.vertices = vertices
-        self.visited = visited
-
+    def __init__(self):
+        self.vertices = {}
 
     def add_vertex(self, vertex):
-        if isinstance(vertex, Vertex) and vertex not in self.vertices:
+        if isinstance(vertex, Vertex) and vertex.name not in self.vertices:
             self.vertices[vertex.name] = vertex
 
 
-    def add_edge(self, vertex1, vertex2):
-        if (vertex1 in self.vertices) and (vertex2 in self.vertices):
-            self.vertices[vertex1].add_adjacent(vertex2)
-            self.vertices[vertex2].add_adjacent(vertex1)
+    '''def add_edge(self, vert1, vert2):
+        if vert1 in self.vertices and vert2 in self.vertices:
+            self.vertices[vert1].add_adj(vert2)
+            self.vertices[vert2].add_adj(vert1)
         else:
-            raise Exception ("No connections")
+            self.add_vertex(vert1)
+            self.add_vertex(vert2)'''
+
+    def add_edge(self, vert1, vert2):
+        if vert1 in self.vertices and vert2 in self.vertices:
+            for key, value in self.vertices.items():
+                if key == vert1:
+                    value.add_adj(vert2)
+                if key == vert2:
+                    value.add_adj(vert1)
 
     def display(self):
+        for key in sorted (list (self.vertices.keys())):
+            print (key + str(self.vertices[key].adj))
 
-        for key in sorted (list (self.vertices.keys())) :
-            print (key + str(self.vertices[key].adjacent) )
-
-    def dfs (self, start):
-        stack = []
-        stack.append(start)
-
-        while stack:
-            current = stack.pop(0)
-
-            stack.extend(current.adjacent)
-
-
-        print (current.adjacent)
-        print(self.visited)
-        print(stack)
-
-g = Graph()
-# print(str(len(g.vertices)))
-a = Vertex('A')
-g.add_vertex(a)
-g.add_vertex(Vertex('B'))
-for i in range(ord('A'), ord('J')):
-	g.add_vertex(Vertex(chr(i)))
-
-edges = ['AB', 'AI','IC', 'IG', 'CD', 'CE', 'CF', 'EH', 'GH']
-for edge in edges:
-	g.add_edge(edge[:1], edge[1:])
-
-g.dfs(g.vertices['A'])
-
---------------------------------------------------------
-class Graph(object):
-
-    def __init__(self, graph_dict = {}):
-        self.graph = graph_dict
-        
-    def ret_vertices(self):
-        return list(self.graph.keys())
-
-    def ret_edges (self):
-        edges =[]
-        for vertex in self.graph:
-            for neighbor in self.graph[vertex]:
-                if [neighbor, vertex] not in edges:
-                    edges.append([vertex, neighbor])
-        return sorted(edges)
-
-
-    def add_vertex(self, vertex):
-        if vertex not in self.graph:
-            self.graph[vertex] = []
-
-    def add_edge(self, edge):
-        (vert1, vert2) = tuple(edge)
-        if vert2 in self.graph:
-            self.graph[vert1].append([vert2])
-
-    def dfs(self, start):
-        gdict = self.graph
-        vertices = list(gdict.keys())
-        edges = list(gdict.values())
-        stack = []
+    def dfs(self, vertex):
+        stack = [vertex]
         visited = []
-        stack.append(start)
 
         while stack:
-            current = stack.pop()
-            if current not in visited:
-                visited.append(current)
-        
-       
+            vert1 = stack.pop(0)
+
+
+            if vert1 not in visited:
+                visited.append(vert1)
+
+                for vert2 in vert1.adj:
+                    vert2 = self.vertices[vert2]
+                    if vert2 not in visited:
+                        stack.append(vert2)
+
+
+
+        print(visited)
+
+
+
+
 
 
 if __name__ == '__main__':
+    g = Graph()
+    # print(str(len(g.vertices)))
+    a = Vertex('A')
+    g.add_vertex(a)
+    g.add_vertex(Vertex('B'))
+    for i in range(ord('A'), ord('J')):
+        g.add_vertex(Vertex(chr(i)))
 
-   g = Graph()
-   for i in range(ord('A'), ord('K')):
-       
-       g.add_vertex(chr(i))
-   print(g.ret_vertices())
-   g.add_edge(['A','B'])
-   g.add_edge(['A','I'])
-   g.add_edge(['I','C'])
-   g.add_edge(['I','G'])
-   g.add_edge(['C','D'])
-   g.add_edge(['C','E'])
-   g.add_edge(['C','F'])
-   g.add_edge(['E','H'])
-   g.add_edge(['G','H'])
-   
+    edges = ['AB', 'AI','IC', 'IG', 'CD', 'CE', 'CF', 'EH', 'GH']
+    for edge in edges:
+        g.add_edge(edge[:1], edge[1:])
 
-   print(g.dfs('A'))
+    g.dfs(g.vertices['A'])
+
