@@ -1,9 +1,7 @@
-
 class Vertex (object):
     def __init__(self, name):
         self.name = name
         self.adj = sorted (list())
-
 
 
     def add_adj(self, vert2):
@@ -50,14 +48,13 @@ class Graph(object):
                 current = stack.pop(0)
                 neighbors = sorted ( list(current.adj))
 
-
                 if current.name not in path:
                     path.append(current.name)
                     for neighbor in neighbors:
 
                            stack = [self.vertices[neighbor]] + stack
 
-        print (path)
+        print ("DFS: " + str(path))
 
     def bfs (self, vertex):
 
@@ -74,12 +71,11 @@ class Graph(object):
                     for neighbor in neighbors:
                         if neighbor not in path:
                             queue =  queue +  [self.vertices[neighbor]]
-        print(path)
+        print( "BFS: " + str (path))
 
 if __name__ == '__main__':
     g = Graph()
-    v = Vertex('A')
-    
+
     for i in range(ord('A'), ord('J')):
         g.add_vertex(Vertex(chr(i)))
 
@@ -91,5 +87,3 @@ if __name__ == '__main__':
     g.display()
     g.dfs(g.vertices['A'])
     g.bfs(g.vertices['A'])
-
-
