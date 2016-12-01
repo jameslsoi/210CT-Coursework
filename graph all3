@@ -38,26 +38,19 @@ class Graph(object):
         for key in sorted (list (self.vertices.keys())) :
             print (key + str(self.vertices[key].adjacent) )
 
-
-
-    def dfs(self, visited = []):
+    def dfs (self, start):
         stack = []
+        stack.append(start)
 
-        for key in sorted (list (self.vertices.keys())):
-            current ={0}
-            while stack:
-                current = stack.pop()
-                for neighbor in self.vertices[key].adjacent:
-                    if neighbor not in visitet:
-                        stack.append(neighbor)
-            visited.append(current)
-        return visited
+        while stack:
+            current = stack.pop(0)
+
+            stack.extend(current.adjacent)
 
 
-
-
-
-
+        print (current.adjacent)
+        print(self.visited)
+        print(stack)
 
 g = Graph()
 # print(str(len(g.vertices)))
@@ -71,5 +64,4 @@ edges = ['AB', 'AI','IC', 'IG', 'CD', 'CE', 'CF', 'EH', 'GH']
 for edge in edges:
 	g.add_edge(edge[:1], edge[1:])
 
-g.dfs('A')
-
+g.dfs(g.vertices['A'])
