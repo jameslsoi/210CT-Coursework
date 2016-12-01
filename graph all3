@@ -65,3 +65,66 @@ for edge in edges:
 	g.add_edge(edge[:1], edge[1:])
 
 g.dfs(g.vertices['A'])
+
+--------------------------------------------------------
+class Graph(object):
+
+    def __init__(self, graph_dict = {}):
+        self.graph = graph_dict
+        
+    def ret_vertices(self):
+        return list(self.graph.keys())
+
+    def ret_edges (self):
+        edges =[]
+        for vertex in self.graph:
+            for neighbor in self.graph[vertex]:
+                if [neighbor, vertex] not in edges:
+                    edges.append([vertex, neighbor])
+        return sorted(edges)
+
+
+    def add_vertex(self, vertex):
+        if vertex not in self.graph:
+            self.graph[vertex] = []
+
+    def add_edge(self, edge):
+        (vert1, vert2) = tuple(edge)
+        if vert2 in self.graph:
+            self.graph[vert1].append([vert2])
+
+    def dfs(self, start):
+        gdict = self.graph
+        vertices = list(gdict.keys())
+        edges = list(gdict.values())
+        stack = []
+        visited = []
+        stack.append(start)
+
+        while stack:
+            current = stack.pop()
+            if current not in visited:
+                visited.append(current)
+        
+       
+
+
+if __name__ == '__main__':
+
+   g = Graph()
+   for i in range(ord('A'), ord('K')):
+       
+       g.add_vertex(chr(i))
+   print(g.ret_vertices())
+   g.add_edge(['A','B'])
+   g.add_edge(['A','I'])
+   g.add_edge(['I','C'])
+   g.add_edge(['I','G'])
+   g.add_edge(['C','D'])
+   g.add_edge(['C','E'])
+   g.add_edge(['C','F'])
+   g.add_edge(['E','H'])
+   g.add_edge(['G','H'])
+   
+
+   print(g.dfs('A'))
