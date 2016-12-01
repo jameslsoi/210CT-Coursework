@@ -19,9 +19,6 @@ class Graph(object):
     def get_vertices(self):
         return sorted (list(self.vertices.keys()))
 
-    def get_edge(self):
-        return list(self.vertices.keys())
-
     def add_vertex(self, vertex):
         if isinstance(vertex,Vertex) and vertex.name not in self.vertices:
             self.vertices[vertex.name] = vertex
