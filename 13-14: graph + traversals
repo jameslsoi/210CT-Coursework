@@ -96,9 +96,9 @@ class Graph(object):
 
                 if current.name not in path:
                     path.append(current.name)
-                    for neighbor in neighbors:
-                        if neighbor not in path:
-                            queue =  queue +  [self.vertices[neighbor]]
+                for neighbor in neighbors:
+                    if neighbor not in path:
+                        queue =  queue +  [self.vertices[neighbor]]
         print( "BFS: " + str (path))
         file = open ("BFS_Traversal.txt", "w")
         file.write("BFS: " + str(path))
