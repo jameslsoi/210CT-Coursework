@@ -1,21 +1,19 @@
+FUNCTION matrix_add (m1,m2) #big 0: 0(n^2)
+    for entire row in m1
+        for entire column m1
+            m3[row, column] <-- m2[row,column] + m1[row,column]
+    return m3
+FUNCTION matrix_sub (m1,m2) #big 0 : 0(n^2)
+    for entire row in m1
+        for entire column in m1
+            m3[row, column] <-- m2[row,column] - m1[row,column]
+    return m3
+FUNCTION matrix_multiplication (m1,m2)# big O : 0(n^3)
+    for entire row in m1
+        for entire column2 in m2
+            for entire column1 in m1
+                m3[row,column] <-- m1[row,column] * m2[column1,column2]
+    return m3
 
-FUNCTION matrix_add (m1,m2)
-    for each row_v in m1
-        for each col_v in m1
-            m3[row_v][col_v] <-- m1[row_v][col_v] + m2[row_v][col_v]
-
-FUNCTION matrix_sub (m1,m2)
-    for each row_v in m1
-        for each col_v in m1
-            m3[row_v][col_v] <-- m2[row_v][col_v] - m1[row_v][col_v]
-
-FUNCTION matrix_mult (m1,m2)
-    for each row in m1
-        get sum of row
-        for each col m2
-            get sum of col
-
-            m3[row_val][col_v] <-- m2[row_v][col_v] * m3[row_v][col_v]
-
-a= b*c - 2*(b+c)
-a = matrix_mult(b,c) - ( 2 * (matrix_add(b,c)))
+# a = b*c - 2*(b+c)
+a = matrix_multiplicati
