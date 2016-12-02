@@ -3,13 +3,13 @@ def max_subseq(seq):
     final = []
     temp = [seq[0]]
 
-    for item in range(len(seq) -1):
-        first = seq[item]
+    for item in range(len(seq) -1): #iterates
+        first = seq[item]           #pointers
         second = seq[item-1]
 
-        if first > second:
+        if first > second:      
             temp.append(first)
-        elif len(temp) > len(final):
+        elif len(temp) > len(final): 
             final = temp
             temp = [first]
 
