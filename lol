@@ -1,73 +1,10 @@
-class Node(object):
-    def __init__(self, value):
-        self.value = value
+The remove method requires two logical steps. First, we need to traverse the list looking for the item we want to remove. Once we find the item (recall that we assume it is present), we must remove it. The first step is very similar to search. Starting with an external reference set to the head of the list, we traverse the links until we discover the item we are looking for. Since we assume that item is present, we know that the iteration will stop before current gets to None. This means that we can simply use the boolean found in the condition.
 
-class Graph(object):
-    def __init__(self):
-        """Node to list of neighbors hashtable (dict/dictionary in python)"""
-        self.nodes = {}
+When found becomes True, current will be a reference to the node containing the item to be removed. But how do we remove it? One possibility would be to replace the value of the item with some marker that suggests that the item is no longer present. The problem with this approach is the number of nodes will no longer match the number of items. It would be much better to remove the item by removing the entire node.
 
-    def nodes(self):
-        """Returns all the nodes of the graph"""
-        return self.nodes.keys()
+In order to remove the node containing the item, we need to modify the link in the previous node so that it refers to the node that comes after current. Unfortunately, there is no way to go backward in the linked list. Since current refers to the node ahead of the node where we would like to make the change, it is too late to make the necessary modification.
 
-    def edges(self):
-        """Returns all the edges of a graph"""
-        edges = []
-        for node in self.nodes:
-            for incident in self.nodes[node]:
-                edge = (node, incident)
-                if edge not in edges:
-                    edges.append(edge)
-        return edges
+The solution to this dilemma is to use two external references as we traverse down the linked list. current will behave just as it did before, marking the current location of the traverse. The new reference, which we will call previous, will always travel one node behind current. That way, when current stops at the node to be removed, previous will be referring to the proper place in the linked list for the modification.
+Listing 7 shows the complete remove method. Lines 2–3 assign initial values to the two references. Note that current starts out at the list head as in the other traversal examples. previous, however, is assumed to always travel one node behind current. For this reason, previous starts out with a value of None since there is no node before the head (see Figure 11). The boolean variable found will again be used to control the iteration.
 
-    def insert_node(self, value, x):
-        """Insert a node with a value which is a neighbor of x"""
-        node = Node(value)
-        self.nodes[node] = [x]
-        self.nodes[x].append(node)
-
-    def remove_node(self, node):
-        """Removes a given node  of the graph"""
-        for node in self.nodes:
-            if node in self.nodes[node]:
-                self.nodes[node].remove(node)
-        del self.nodes[node]
------------------------------------------------------------
-class Graph:
-    def __init__(self,name=""):
-        self.name = name
-        self.list_neighbor = {}
-        self.list_node = {}
-    def add_node(self,node):
-        self.list_node[node] = True
-
-    def add_edge(self,node,nodebis):
-        try :
-            self.list_neighbor[node].append(nodebis)
-        except :
-            self.list_neighbor[node] = []
-            self.list_neighbor[node].append(nodebis)
-        try :
-            self.list_neighbor[nodebis].append(node)
-        except :
-            self.list_neighbor[nodebis] = []
-            self.list_neighbor[nodebis].append(node)
-    def neighbors(self,node):
-        try :
-            return self.list_neighbor[node]
-        except :
-            return []
-    def nodes(self):
-        return self.list_node.keys()
-   
-
-if __name__ == "__main__":
-    G = Graph("test")
-    G.add_node('1')
-    G.add_node('2')
-    G.add_node('3')
-    G.add_edge(1,2)
-    G.add_edge(2,3)
-    print (G.list_neighbor)
- 
+In lines 6–7 we ask whether the item stored in the current node is the item we wish to remove. If so, found can be set to True. If we do not find the item, previous and current must both be moved one node ahead. Again, the order of these two statements is crucial. previous must first be moved one node ahead to the location of current. At that point, current can be moved. This process is often referred to as “inch-worming” as previous must catch up to current before current moves ahead. Figure 12 shows the movement o
