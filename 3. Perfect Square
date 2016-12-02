@@ -1,15 +1,19 @@
 '''
-    FUNCTION pefect_square(number)
-        
-        square = sqrt (square)
-        
-        if square*square == number
-            output <-- "This is a perfect square"
-        else:
-            square = square.floor
-            result = square*square
-            output <-- result
-    
+pseudocode: function which returns highest perfect square
+import math module
+
+FUNCTION perfect_square(number)
+
+    square = sqrt (number)
+
+    if square*square == number
+        output <-- "This is a perfect square"
+    else
+        square = floor(square)
+        result = square*square
+        output <-- result
+
+big 0 notation =  0 (4n) ---> 0 (n)
 '''
 
 import math
@@ -17,11 +21,11 @@ def perfect_Square(number):
 
     square = math.sqrt (number)
 
-    if square*square == number:                                  
+    if square*square == number:
         print (" This is a perfect square")
 
     else:
-        square = math.floor(square)
+        square = math.floor(square) # round down
         result = square*square
         print (result)
 
