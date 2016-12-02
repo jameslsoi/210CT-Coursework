@@ -1,17 +1,37 @@
+'''function to remove vowels from a string
+FUNCTION remove_vowels(string)
+    if string is not type(string)
+        return string
+    else
+
+        let first be the first element of the string
+            return FUNCTION remove_vowels (string in range(string[0] + 1, length of string)
+
+        return string [0] + type str( FUNCTION remove_vowels(string in range(string[0] + 1, length of string)
+
+
+'''
 def remove_Vowels(string):
 
     if not string:
         return string
 
     else:
-
+        '''set the first letter as the first element of the string
+        standarise by using only lower case
+        check if first letter is a vowel
+            if it is then recursively call the function, skipping the first element
+        '''
         first = string[0]
-        if first.lower() in ['a','e','i','o','u']:     # if the first letter(lowercased) is a vowel         
-            return remove_Vowels(string[1:])           # return the function remove_vowels with the string[1] an onwards
+        if first.lower() in ['a','e','i','o','u']:
+            return remove_Vowels(string[1:])
 
-
-        return string[0] + str( remove_Vowels(string[1:]) #return the first letter and the letters
+        '''return the first letter of the string that is not a vowel and the rest onwards
+        '''
+        return string[0] + str( remove_Vowels(string[1:])) #return the first letter and the letters
 
 
 
 print (remove_Vowels("Beautiful"))
+print (remove_Vowels("Creatine"))
+print(remove_Vowels("Aegis"))
