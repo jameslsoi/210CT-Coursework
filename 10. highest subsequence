@@ -1,29 +1,27 @@
-def highest_subsequence(seq):
+def max_subseq(seq):
 
-    count = 1
-    position = 0
-    sub_seq = []
+    final = []
+    temp = [seq[0]]
 
-    if not seq:
-        raise Exception ("No list")
-        
+    for item in range(len(seq) -1):
+        first = seq[item]
+        second = seq[item-1]
 
-    else:
-        for position in range (0, len(seq)):
-            while seq[position] < seq[position + 1]:
-                count = count + 1
-                sub_seq.append(seq[position])
-                position = position + 1
-                
-                if seq[position] > seq[position +1]:
-                    count = 0
+        if first > second:
+            temp.append(first)
+        elif len(temp) > len(final):
+            final = temp
+            temp = [first]
 
-            else:
-                break
-        return sub_seq
-    
-                    
+        else:
+            temp = [first]
 
 
-seq = [ 1,2,5,3,2,5,6,7,8]
-print(highest_subsequence(seq))
+    print("Longest increasing sub sequence is: " + str(final))
+
+
+
+#seq = [1,2,3,2,3,4,5,6,4,7]
+#seq = [2,3,412,5,23,5,2,3,4]
+#seq = [0,6,3,4,2,3,4,1,6,7,8,1,2,3,4]
+max_subseq(seq)
