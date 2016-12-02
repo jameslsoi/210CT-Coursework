@@ -1,3 +1,9 @@
+'''
+    Unweighted graph with dfs and bfs traversals
+
+create a Vertex object with attributes name, and adjacent list of adjacent vertices
+allow for the addition of adjacent vertices to be added
+'''
 class Vertex (object):
     def __init__(self, name):
         self.name = name
@@ -19,23 +25,43 @@ class Graph(object):
     def get_vertices(self):
         return sorted (list(self.vertices.keys()))
 
+    '''
+        add vertex
+        check if vertex is of a Vertex object and check to see if its in self.vertices dict
+        add vertex name to vertices dict
+    '''
     def add_vertex(self, vertex):
         if isinstance(vertex,Vertex) and vertex.name not in self.vertices:
             self.vertices[vertex.name] = vertex
+        else:
+            raise Exception ("Not a vertex")
 
 
-
+    '''
+        add edge
+        use the add adj to create an edge between 2 exisiting vertices
+    '''
     def add_edge(self, vert1, vert2):
         if vert1 in self.vertices and vert2 in self.vertices:
             self.vertices[vert1].add_adj(vert2)
             self.vertices[vert2].add_adj(vert1)
-
+        else:
+            raise Exception("Vertices do not exist, no edge can be made")
 
 
     def display(self):
         for key in sorted (list (self.vertices.keys())):
             print ( key + str(self.vertices[key].adj))
 
+    '''
+        start with empty stack
+        if length of stack is less than the number of vertices then perform dfs
+        append vertex(start) to stack and pop it (name current)
+        if current not in the path then append to the path:
+        append all of current's neighbors to the stack
+        dfs in FIFO
+
+    '''
     def dfs(self, vertex):
 
         path = []
@@ -43,16 +69,18 @@ class Graph(object):
             stack = [vertex]
             while stack:
                 current = stack.pop(0)
-                neighbors = sorted ( list(current.adj))
-
+                neighbors =  list(current.adj)
                 if current.name not in path:
                     path.append(current.name)
                     for neighbor in neighbors:
-
-                           stack = [self.vertices[neighbor]] + stack
+                        stack = [self.vertices[neighbor]] + stack
 
         print ("DFS: " + str(path))
 
+    '''bfs is FILO
+    uses a queue instead of a stack
+
+    '''
     def bfs (self, vertex):
 
         path = []
@@ -82,5 +110,8 @@ if __name__ == '__main__':
         g.add_edge(edge[:1], edge[1:])
 
     g.display()
+
     g.dfs(g.vertices['A'])
     g.bfs(g.vertices['A'])
+    #g.add_vertex('a')
+    #g.add_edge('p','o')
