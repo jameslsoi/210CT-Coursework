@@ -1,34 +1,31 @@
 '''
-pseudocode: function which returns highest perfect square
-import math module
-
-FUNCTION pefect_Square
-    n <- input integer
-
-    x  <- square root of n
-
-    if x*x  <- n:
-        output <- n is perfect square
-    else:
-        output <- n is not perfect square
-
-
-big 0 notation =  0 (n+4)
+    FUNCTION pefect_square(number)
+        
+        square = sqrt (square)
+        
+        if square*square == number
+            output <-- "This is a perfect square"
+        else:
+            square = square.floor
+            result = square*square
+            output <-- result
+    
 '''
 
 import math
+def perfect_Square(number):
 
-def perfect_Square (n):
+    square = math.sqrt (number)
 
-    x = math.sqrt (n)
-
-    if x*x == n:                                  # if x^2 is equal to the parameter then it must be a perfect square
+    if square*square == number:                                  
         print (" This is a perfect square")
 
     else:
-        x = math.floor(x)
-        ans = x*x
-        print (ans)
+        square = math.floor(square)
+        result = square*square
+        print (result)
 
 
-perfect_Square(113)   
+perfect_Square(9)
+perfect_Square(23)
+perfect_Square(2)
