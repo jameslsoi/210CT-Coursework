@@ -73,17 +73,15 @@ def iter_inorder(tree):
                 fin = 1
 
 
+def tree_sort ( items):
+    for item in items:
+        tree_insert(t,item)
+    iter_inorder(t)
 
 
 if __name__ == '__main__':
 
-    t=tree_insert(None,6);
-    tree_insert(t,10)
-    tree_insert(t,5)
-    tree_insert(t,2)
-    tree_insert(t,3)
-    tree_insert(t,4)
-    tree_insert(t,11)
-    tree_insert(t,12)
-    iter_inorder(t)
 
+    t =tree_insert(None,6);
+    items = [2,3,4,5,10,11,12]
+    tree_sort(items)
