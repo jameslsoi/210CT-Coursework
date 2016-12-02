@@ -1,3 +1,8 @@
+'''Doubly linked list with delete node implemented
+create an object called Node
+    give it the attributes of have a value and 2 nodes  attached to it (prev, next)
+
+'''
 class Node (object):
 
     def __init__(self, value, n =None, p =None):
@@ -25,16 +30,27 @@ class Node (object):
     def set_value(self):
         self.value = value
 
+
 class linked_list(object):
 
     def __init__(self, r= None):
-        self.root = r
-
+        self.root = r                   #start of linked list
+'''insert function
+new nodes will be object Node with a value
+if no root then make one
+if root then just add the new_node to so that it points to the current root, and then set the root to be the new node
+'''
     def insert(self, value):
         new_node = Node( value, self.root)
         if self.root:
             self.root.set_prev(new_node)
         self.root = new_node
+'''Remove function
+start at the root
+find the node taht you want to delete
+set pointer of prev node to the node next to what you want to delete
+
+'''
 
     def remove (self, value):
         current_node = self.root
@@ -77,6 +93,4 @@ if __name__ == '__main__':
     myList.display()
     myList.remove(3)
     myList.display()
-
-
 
