@@ -1,0 +1,165 @@
+'''
+    Unweighted graph with dfs and bfs traversals
+
+create a Vertex object with attributes name, and adjacent list of adjacent vertices
+allow for the addition of adjacent vertices to be added
+'''
+class Vertex (object):
+    def __init__(self, name):
+        self.name = name
+        self.adj = sorted (list())
+
+
+    def add_adj(self, vert2, distance):
+        if vert2 not in self.adj:
+            self.adj.append((vert2, distance))
+
+
+
+class Graph(object):
+
+    def __init__(self):
+
+        self.vertices = {}
+
+
+    def get_vertices(self):
+        return sorted (list(self.vertices.keys()))
+
+    '''
+        add vertex
+        check if vertex is of a Vertex object and check to see if its in self.vertices dict
+        add vertex name to vertices dict
+    '''
+    def add_vertex(self, vertex):
+        if isinstance(vertex,Vertex) and vertex.name not in self.vertices:
+            self.vertices[vertex.name] = vertex
+        else:
+            raise Exception ("Not a vertex")
+
+
+    '''
+        add edge
+        use the add adj to create an edge between 2 exisiting vertices
+    '''
+    def add_edge(self, vert1, vert2, distance):
+        if vert1 in self.vertices and vert2 in self.vertices:
+            self.vertices[vert1].add_adj(vert2,distance)
+            self.vertices[vert2].add_adj(vert1,distance)
+        else:
+            raise Exception("Vertices do not exist, no edge can be made")
+
+
+    def display(self):
+        for key in sorted (list (self.vertices.keys())):
+            print ( key + str(self.vertices[key].adj))
+
+    '''
+        start with empty stack
+        if length of stack is less than the number of vertices then perform dfs
+        append vertex(start) to stack and pop it (name current)
+        if current not in the path then append to the path:
+        append all of current's neighbors to the stack
+        dfs in FIFO
+
+    '''
+    def dfs(self, vertex):
+
+        path = []
+        if len(path) < len (self.get_vertices()):
+            stack = [vertex]
+            while stack:
+                current = stack.pop(0)
+                neighbors =  list(current.adj)
+                if current.name not in path:
+                    path.append(current.name)
+                    for neighbor in neighbors:
+                        stack = [self.vertices[neighbor]] + stack
+
+        print ("DFS: " + str(path))
+        file = open("DFS_Traversal.txt", "w")
+        file.write("DFS: " + str(path))
+
+
+    '''bfs is FILO
+    uses a queue instead of a stack
+
+    '''
+    def bfs (self, vertex):
+
+        path = []
+        if len (path) < len (self.get_vertices()):
+            queue = [vertex]
+
+            while queue:
+                current = queue.pop(0)
+                neighbors = sorted( list (current.adj))
+
+                if current.name not in path:
+                    path.append(current.name)
+                for neighbor in neighbors:
+                    if neighbor not in path:
+                        queue =  queue +  [self.vertices[neighbor]]
+        print( "BFS: " + str (path))
+        file = open ("BFS_Traversal.txt", "w")
+        file.write("BFS: " + str(path))
+
+    def dijkstra(self, initial_node):
+        visited = {initial_node: 0}
+        current_vertex = initial_node
+        path = {}
+
+        nodes = set(self.vertices)
+
+        while nodes:
+            min_node = None
+            for vertex in self.vertices:
+                if vertex in visited:
+                    if min_node is None:
+                        min_node = vertex
+                    elif visited[vertex] < visited[min_node]:
+                        min_node = vertex
+
+            if min_node is None:
+                break
+
+            self.vertices[vertex].remove(min_node)
+            cur_wt = visited[min_node]
+
+            for edge in graph.edges[min_node]:
+                wt = cur_wt + graph.distances[(min_node, edge)]
+                if edge not in visited or wt < visited[edge]:
+                    visited[edge] = wt
+                    path[edge] = min_node
+
+        return visited, path
+
+
+    def shortest_path(self, initial_node, goal_node):
+        distances, paths = self.dijkstra(initial_node)
+        route = [goal_node]
+
+        while goal_node != initial_node:
+            route.append(paths[goal_node])
+            goal_node = paths[goal_node]
+
+        route.reverse()
+        return route
+
+
+
+if __name__ == '__main__':
+    g = Graph()
+
+    for i in range(ord('A'), ord('K')):
+        g.add_vertex(Vertex(chr(i)))
+
+
+    edges = ['AB3','AI2','CD4','CE2','CF3','EH5','FG2','GH1','IC3','IG4']
+    for edge in edges:
+        g.add_edge(edge[:1],edge[1:2],edge[2:])
+    g.display()
+    g.shortest_path('A','G')
+
+    #g.add_vertex('a')
+    #g.add_edge('p','o')
