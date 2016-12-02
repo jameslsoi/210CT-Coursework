@@ -1,7 +1,26 @@
+'''Adaption of binary search, checks within ranges instead of for a specific value
+
+FUNCTION binary_search (list = type(list), lower_bound, upper_bound):
+
+    if length of list equivalent to 0
+        return False
+    else:
+        midpoint <-- length of list // 2
+
+        if list[midpoint] > lower_bound and list[midpoint] < upper_bound
+            return True
+        else if list[midpoint] > lower_bound
+            return FUNCTION binary_search (list[start to (midpoint-1], lower_bound, upper_bound)
+        else:
+            return FUNCTION binary_search (list[from (midpoint+ 1) to end of list, lower_bound, upper_bound)
+
+    return Found
+
+big 0 notation = 0(log(n))
+
+
+'''
 def binary_Search (list, lower_bound, upper_bound):
-
-
-    found = False
 
 
     if len(list) == 0:
@@ -10,17 +29,17 @@ def binary_Search (list, lower_bound, upper_bound):
     else:
 
         midpoint = len(list)//2
-        if list[midpoint] > lower_bound and list[midpoint] < upper_bound:               #midpoint between upperbound and lowerbound
+        if list[midpoint] > lower_bound and list[midpoint] < upper_bound:
 
             return True
 
         elif list[midpoint] > lower_bound:
-            return binary_Search(list[:midpoint],lower_bound, upper_bound)              #Recursive, list[0] --> midpoint[-1]
+            return binary_Search(list[:midpoint],lower_bound, upper_bound)
 
         else:
-            return binary_Search(list[midpoint + 1:],lower_bound, upper_bound)         #Recursive, midpoint+1 to end of list
+            return binary_Search(list[midpoint + 1:],lower_bound, upper_bound)
 
-    return found
+
 
 
 list = [2.5,3.5,5.5,7.5,11.5,13.5,17.5]
