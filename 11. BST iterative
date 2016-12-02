@@ -1,0 +1,89 @@
+'''
+    Binary search tree with inorder done using iteration
+'''
+class Node(object):
+
+    def __init__(self, value):
+        self.value=value
+        self.left=None
+        self.right=None
+
+
+'''tree insert
+if no tree, then start by adding an item to tree
+if item less than tree value, then add to left
+if no left child, make one and add the new item, else just insert it into the left
+
+'''
+def get_size(tree):
+    return list(tree.size.keys())
+
+def tree_insert( tree, item):
+    if tree==None:
+        tree=Node(item)
+
+
+    else:
+        if(item < tree.value):
+            if(tree.left==None):
+                tree.left= Node(item)
+
+            else:
+                tree_insert(tree.left,item)
+
+        else:
+            if(tree.right==None):
+                tree.right= Node(item)
+
+            else:
+                tree_insert(tree.right,item)
+
+    return tree
+
+def postorder(tree):
+    if(tree.left!=None):
+        postorder(tree.left)
+    if(tree.right!=None):
+        postorder(tree.right)
+    print (tree.value)
+
+
+'''iterative inorder
+start with a stack,
+append the root/start of tree to the stack
+whilst there are still left nodes remaining make them the current and append them to the stack.
+if no more left child, then look to right
+'''
+def iter_inorder(tree):
+
+    stack = []
+    current = tree
+    fin = 0
+    while not fin :
+        if current != None:
+            stack.append(current)
+            current = current.left
+
+        else:
+            if stack:
+                current = stack.pop()
+                print(current.value)
+                current = current.right
+            else:
+                fin = 1
+
+
+
+
+if __name__ == '__main__':
+
+    t=tree_insert(None,6);
+    tree_insert(t,10)
+    tree_insert(t,5)
+    tree_insert(t,2)
+    tree_insert(t,3)
+    tree_insert(t,4)
+    tree_insert(t,11)
+    tree_insert(t,12)
+    iter_inorder(t)
+
