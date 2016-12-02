@@ -1,0 +1,21 @@
+
+FUNCTION matrix_add (m1,m2)
+    for each row_v in m1
+        for each col_v in m1
+            m3[row_v][col_v] <-- m1[row_v][col_v] + m2[row_v][col_v]
+
+FUNCTION matrix_sub (m1,m2)
+    for each row_v in m1
+        for each col_v in m1
+            m3[row_v][col_v] <-- m2[row_v][col_v] - m1[row_v][col_v]
+
+FUNCTION matrix_mult (m1,m2)
+    for each row in m1
+        get sum of row
+        for each col m2
+            get sum of col
+
+            m3[row_val][col_v] <-- m2[row_v][col_v] * m3[row_v][col_v]
+
+a= b*c - 2*(b+c)
+a = matrix_mult(b,c) - ( 2 * (matrix_add(b,c)))
